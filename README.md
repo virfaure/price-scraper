@@ -1,4 +1,4 @@
-TET Price Comparator
+Price Scraper
 ====================
 
 Utility to crawl and parse e-commerce URLs to extract pricing data.
@@ -35,8 +35,8 @@ mysql> Ctrl+D
 3. Checkout the code from the [bitbucket repository]
 ```
 $ cd ~/workspace
-$ git clone git@bitbucket.org:etailers/tet-price-comparator.git
-$ cd tet-price-comparator
+$ git clone git@github.com:virfaure/price-scraper.git
+$ cd price-scraper
 $ chmod +x console
 ```
 
@@ -167,25 +167,3 @@ To get a coverage report:
 $ vendor/bin/phpunit --coverage-html ./.phpunit --testsuite spiders
 $ google-chrome .phpunit/index.html
 ```
-
-
-TODO
-----
-
-* Adminstration web interface
-* Bulk load command
-
-[composer]:https://getcomposer.org/
-[bitbucket repository]:https://bitbucket.org/etailers/tet-price-comparator
-[fabpot/goutte]:https://github.com/fabpot/goutte
-[j4mie/idiorm]:http://idiorm.readthedocs.org/en/latest/index.html
-[j4mie/paris]:http://paris.readthedocs.org/en/latest/index.html
-[guzzle/guzzle]:http://docs.guzzlephp.org/en/latest/
-[symfony/browser-kit]:https://github.com/symfony/BrowserKit
-[symfony/console]:http://symfony.com/doc/current/components/console/index.html
-[symfony/dom-crawler]:http://symfony.com/doc/current/components/dom_crawler.html
-[symfony/css-selector]:http://symfony.com/doc/current/components/css_selector.html
-[phpmailer/phpmailer]:https://github.com/PHPMailer/PHPMailer
-[respect/config]:https://github.com/Respect/Config
-[phpunit/phpunit]:http://phpunit.de/manual/3.7/en/index.html
-[lstrojny/phpunit-clever-and-smart]:https://github.com/lstrojny/phpunit-clever-and-smart
