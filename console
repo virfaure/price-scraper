@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+require 'vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Respect\Config\Container;
+
+$c = new Container("config.ini");
+
+ORM::configure(array(
+    'connection_string' => $c->database['driver'] . ':host=' . $c->database['host'] . ';dbname=' . $c->database['name'],
+    'username' => $c->database['user'],
+    'password' => $c->database['pass'],
+    'driver_options' => array(
+        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+    ),
+    'return_result_sets' => true,
+    'error_mode' => PDO::ERRMODE_WARNING,
+    'caching' => (bool) $c->general['caching'],
+    'logging' => (bool) $c->general['logging'],
+    'logger' => function($message) { echo $message . "\n"; }
+));
+
+$application = new Application();
+$application->add(new TET\Command\Harvest);
+$application->add(new TET\Command\Report);
+$application->run();

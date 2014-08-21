@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+sites="medicanimal_fr medicanimal_uk miscota_es miscota_fr telepienso_es tiendanimal_es tiendanimal_fr zooplus_es zooplus_fr petclic_es wanimo_fr bypets_es animalclan_es tupienso_es"
+for f in $sites; do
+    ./console tet:harvest --delay=1 $f | tee -a logs/harvest-all-201404241251.log
+done

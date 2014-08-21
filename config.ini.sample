@@ -1,0 +1,20 @@
+[database]
+driver      =   "mysql"
+host        =   "localhost"
+name        =   "pc"
+user        =   "pc"
+pass        =   "pc"
+
+[general]
+logging     =   0
+caching     =   1
+
+[mail]
+use_smtp    =   1
+auth        =   1
+host        =   "<smtp>"
+user        =   "<user>"
+pass        =   "<pass>"
+secure      =   ""
+from_name   =   "TET Price Comparator"
+from_email  =   "<from>"

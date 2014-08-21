@@ -1,0 +1,30 @@
+{
+    "name": "tet/price-comparator",
+    "description": "TET Price Comparator",
+    "authors": [
+        {
+            "name": "Xose Perez",
+            "email": "xose.perez@theetailers.com",
+            "homepage": "http://www.theetailers.com",
+            "role": "Developer & Project Leader"
+        }
+    ],
+    "license": [
+        "propietary"
+    ],
+    "require": {
+        "php": ">=5.2.0",
+        "fabpot/goutte": "1.0",
+        "j4mie/paris": "1.4.2",
+        "symfony/console": "2.4.2",
+        "phpmailer/phpmailer": "5.2.7",
+        "respect/config": "1.0.1",
+        "phpunit/phpunit": "3.7.*",
+        "lstrojny/phpunit-clever-and-smart": "0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "TET\\": "src/"
+        }
+    }
+}

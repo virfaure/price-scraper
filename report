@@ -1,0 +1,5 @@
+#!/bin/bash
+cd "$(dirname "$0")"
+php console tet:harvest all
+php console tet:report --hours 24 --to jllena@affinity-petcare.com,rferrer@affinity-petcare.com --bcc xose.perez@theetailers.com,gerard.caula@theetailers.com
+

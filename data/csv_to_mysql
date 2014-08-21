@@ -1,0 +1,53 @@
+#!/bin/bash
+
+first=1
+
+echo "TRUNCATE page_product;"
+
+while read line; do
+
+    echo "START TRANSACTION;"
+
+    if [ $first == 1 ]; then
+
+        # get sites information from header
+        for i in $(seq 8 25); do
+            tmp=`echo $line | cut -d, -f$i`
+            domain=`echo $tmp | awk '{print $1}'`
+            country=`echo $tmp | awk '{print $2}' | sed "s/[()]//g"`
+            name=`echo $domain | cut -d. -f2`
+            name=${name}_${country,,}
+            echo "INSERT IGNORE INTO site SET name='$name', country_id='$country', domain='$domain';"
+            echo "SELECT @site_$i := id FROM site WHERE name='$name';"
+        done
+
+    else
+
+        # create products (only the first time)
+        ean=`echo $line | cut -d, -f1 | sed "s/'/''/g"`
+        name=`echo $line | cut -d, -f2 | sed "s/'/''/g"`
+        brand=`echo $line | cut -d, -f3 | sed "s/'/''/g"`
+        size=`echo $line | cut -d, -f4 | sed "s/'/''/g"`
+        speciality=`echo $line | cut -d, -f5 | sed "s/'/''/g"`
+        animal=`echo $line | cut -d, -f6 | sed "s/'/''/g"`
+        format=`echo $line | cut -d, -f7 | sed "s/'/''/g"`
+        echo "INSERT INTO product SET ean='$ean', name='$name', brand='$brand', size='$size', speciality='$speciality', animal='$animal', format='$format' ON DUPLICATE KEY UPDATE name='$name', brand='$brand', size='$size', speciality='$speciality', animal='$animal', format='$format';"
+        echo "SELECT @product := id FROM product WHERE ean='$ean';"
+
+        # create pages and link the to products
+        for i in $(seq 8 25); do
+            url=`echo $line | cut -d, -f$i | sed "s/'/''/g"`
+            if [ "$url" != "" ]; then
+                echo "INSERT IGNORE INTO page VALUES(NULL,  '$url');"
+                echo "SELECT @page := id FROM page WHERE url='$url';"
+                echo "INSERT IGNORE INTO page_product VALUES(@product, @page, @site_$i);"
+            fi
+        done
+
+    fi
+
+    echo "COMMIT;"
+
+    first=0
+
+done < data.csv
